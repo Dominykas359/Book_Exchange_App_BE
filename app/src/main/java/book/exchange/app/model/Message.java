@@ -1,2 +1,22 @@
-package book.exchange.app.model;public class Messages {
+package book.exchange.app.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Message {
+
+    private UUID id;
+    private UUID senderId;
+    private UUID chatId;
+    private String text;
+    private LocalDateTime timeSent;
 }
