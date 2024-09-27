@@ -14,6 +14,8 @@ import java.util.UUID;
 public class History {
 
     private UUID id;
-    private UUID publicationId;
+    private UUID bookId;
+    private UUID comicId;
+    private UUID periodicalId;
     private UUID userID;
 }
