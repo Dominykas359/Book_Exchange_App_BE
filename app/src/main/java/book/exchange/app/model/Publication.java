@@ -15,8 +15,6 @@ import java.util.UUID;
 public class Publication {
 
     protected UUID id;
-    protected UUID userId;
-    protected LocalDate timePosted;
     protected LocalDate releaseYear;
     protected String title;
     protected String publisher;

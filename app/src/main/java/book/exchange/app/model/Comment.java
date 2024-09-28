@@ -17,9 +17,7 @@ public class Comment {
 
     private UUID id;
     private UUID userId;
-    private UUID bookId;
-    private UUID comicId;
-    private UUID periodicalId;
+    private UUID noticeId;
     private LocalDateTime timePosted;
     private String content;
     private UUID comment_id;
