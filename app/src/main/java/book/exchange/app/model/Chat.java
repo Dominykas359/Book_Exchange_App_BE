@@ -16,8 +16,6 @@ public class Chat {
 
     private UUID id;
     private UUID userId;
-    private UUID bookId;
-    private UUID comicId;
-    private UUID periodicalID;
+    private UUID noticeId;
     private List<Message> messages;
 }

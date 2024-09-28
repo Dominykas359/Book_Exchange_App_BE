@@ -5,21 +5,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Comment {
+public class Notice {
 
     private UUID id;
     private UUID userId;
-    private UUID noticeId;
-    private LocalDateTime timePosted;
-    private String content;
-    private UUID comment_id;
-    private List<Comment> replies;
+    private UUID bookId;
+    private UUID comicId;
+    private UUID periodicalId;
+    private LocalDate timePosted;
 }

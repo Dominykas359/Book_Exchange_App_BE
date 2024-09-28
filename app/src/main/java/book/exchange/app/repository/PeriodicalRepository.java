@@ -13,15 +13,13 @@ import java.util.UUID;
 public interface PeriodicalRepository {
 
     @Insert("INSERT INTO app.periodicals " +
-            "(id, user_id, time_posted, release_year, title, publisher, author, book_language, status, price, number) " +
-            "VALUES(#{id}, #{userId}, #{timePosted}, #{releaseYear}, #{title}, #{publisher}, #{author}, #{bookLanguage}, #{status}, #{price}, #{number})")
+            "(id, release_year, title, publisher, author, book_language, status, price, number) " +
+            "VALUES(#{id}, #{releaseYear}, #{title}, #{publisher}, #{author}, #{bookLanguage}, #{status}, #{price}, #{number})")
     void createPeriodical(Periodical periodical);
 
     @Select("SELECT * FROM app.periodicals")
     @Results({
             @Result(property = "id", column = "id"),
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "timePosted", column = "time_posted"),
             @Result(property = "releaseYear", column = "release_year"),
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
@@ -36,8 +34,6 @@ public interface PeriodicalRepository {
     @Select("SELECT * FROM app.periodicals WHERE id = #{id}")
     @Results({
             @Result(property = "id", column = "id"),
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "timePosted", column = "time_posted"),
             @Result(property = "releaseYear", column = "release_year"),
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
@@ -52,8 +48,6 @@ public interface PeriodicalRepository {
     @Select("SELECT * FROM app.periodicals WHERE release_year = #{releaseYear}")
     @Results({
             @Result(property = "id", column = "id"),
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "timePosted", column = "time_posted"),
             @Result(property = "releaseYear", column = "release_year"),
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
@@ -68,8 +62,6 @@ public interface PeriodicalRepository {
     @Select("SELECT * FROM app.periodicals WHERE price <= #{price}")
     @Results({
             @Result(property = "id", column = "id"),
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "timePosted", column = "time_posted"),
             @Result(property = "releaseYear", column = "release_year"),
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
@@ -84,8 +76,6 @@ public interface PeriodicalRepository {
     @Select("SELECT * FROM app.periodicals WHERE LOWER(title) ILIKE '%' || LOWER(#{title}) || '%'")
     @Results({
             @Result(property = "id", column = "id"),
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "timePosted", column = "time_posted"),
             @Result(property = "releaseYear", column = "release_year"),
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
@@ -100,8 +90,6 @@ public interface PeriodicalRepository {
     @Select("SELECT * FROM app.periodicals WHERE LOWER(publisher) ILIKE '%' || LOWER(#{publisher}) || '%'")
     @Results({
             @Result(property = "id", column = "id"),
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "timePosted", column = "time_posted"),
             @Result(property = "releaseYear", column = "release_year"),
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
@@ -116,8 +104,6 @@ public interface PeriodicalRepository {
     @Select("SELECT * FROM app.periodicals WHERE LOWER(author) ILIKE '%' || LOWER(#{author}) || '%'")
     @Results({
             @Result(property = "id", column = "id"),
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "timePosted", column = "time_posted"),
             @Result(property = "releaseYear", column = "release_year"),
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
@@ -132,8 +118,6 @@ public interface PeriodicalRepository {
     @Select("SELECT * FROM app.periodicals WHERE LOWER(book_language) ILIKE '%' || LOWER(#{bookLanguage}) || '%'")
     @Results({
             @Result(property = "id", column = "id"),
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "timePosted", column = "time_posted"),
             @Result(property = "releaseYear", column = "release_year"),
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
@@ -148,8 +132,6 @@ public interface PeriodicalRepository {
     @Select("SELECT * FROM app.periodicals WHERE LOWER(status) ILIKE '%' || LOWER(#{status}) || '%'")
     @Results({
             @Result(property = "id", column = "id"),
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "timePosted", column = "time_posted"),
             @Result(property = "releaseYear", column = "release_year"),
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),

@@ -13,17 +13,15 @@ import java.util.UUID;
 public interface HistoryRepository {
 
     @Insert("INSERT INTO app.history " +
-            "(id, book_id, comic_id, periodical_id, user_id) " +
-            "VALUES (#{id}, #{bookId}, #{comicId}, #{periodicalId}, #{userId})")
+            "(id, user_id, notice_id) " +
+            "VALUES (#{id}, #{userId}, #{noticeId})")
     void createHistory(History history);
 
     @Select("SELECT * FROM app.history WHERE user_id = #{userId}")
     @Results({
             @Result(property = "id", column = "id"),
-            @Result(property = "bookId", column = "book_id"),
-            @Result(property = "comicId", column = "comic_id"),
-            @Result(property = "periodicalId", column = "periodical_id"),
-            @Result(property = "userId", column = "user_id")
+            @Result(property = "userId", column = "user_id"),
+            @Result(property = "noticeId", column = "notice_id")
     })
     List<History> findByUser(@Param("userId") UUID id);
 

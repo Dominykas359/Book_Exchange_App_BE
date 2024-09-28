@@ -12,48 +12,21 @@ import java.util.UUID;
 public interface CommentRepository {
 
     @Insert("INSERT INTO app.comments " +
-            "(id, user_id, book_id, comic_id, periodical_id, time_sent, content, comment_id) " +
-            "VALUES(#{id}, #{userId}, #{bookId}, #{comicId}, #{periodicalId}, #{timeSent}, #{content}, #{commentId})")
+            "(id, user_id, time_sent, content, comment_id, notice_id) " +
+            "VALUES(#{id}, #{userId}, #{timeSent}, #{content}, #{commentId}, #{noticeId})")
     void createComment(Comment comment);
 
-    @Select("SELECT * FROM app.comments WHERE book_id = #{bookId} AND comment_id IS NULL")
+    @Select("SELECT * FROM app.comments WHERE notice_id = #{noticeId} AND comment_id IS NULL")
     @Results({
             @Result(property = "id", column = "Id"),
             @Result(property = "userId", column = "user_id"),
-            @Result(property = "bookId", column = "book_id"),
-            @Result(property = "comicId", column = "comic_id"),
-            @Result(property = "periodicalId", column = "periodical_id"),
             @Result(property = "timeSent", column = "time_sent"),
             @Result(property = "content", column = "content"),
-            @Result(property = "commentId", column = "comment_id")
+            @Result(property = "commentId", column = "comment_id"),
+            @Result(property = "noticeId", column = "notice_id")
     })
-    List<Comment> getCommentForBook(@Param("bookI") UUID id);
+    List<Comment> getCommentForNotice(@Param("noticeId") UUID id);
 
-    @Select("SELECT * FROM app.comments WHERE comic_id = #{comicId} AND comment_id IS NULL")
-    @Results({
-            @Result(property = "id", column = "Id"),
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "bookId", column = "book_id"),
-            @Result(property = "comicId", column = "comic_id"),
-            @Result(property = "periodicalId", column = "periodical_id"),
-            @Result(property = "timeSent", column = "time_sent"),
-            @Result(property = "content", column = "content"),
-            @Result(property = "commentId", column = "comment_id")
-    })
-    List<Comment> getCommentForComic(@Param("comicId") UUID id);
-
-    @Select("SELECT * FROM app.comments WHERE periodical_id = #{periodicalId} AND comment_id IS NULL")
-    @Results({
-            @Result(property = "id", column = "Id"),
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "bookId", column = "book_id"),
-            @Result(property = "comicId", column = "comic_id"),
-            @Result(property = "periodicalId", column = "periodical_id"),
-            @Result(property = "timeSent", column = "time_sent"),
-            @Result(property = "content", column = "content"),
-            @Result(property = "commentId", column = "comment_id")
-    })
-    List<Comment> getCommentForPeriodical(@Param("periodicalId") UUID id);
 
     @Select("SELECT * FROM app.comments WHERE comment_id = #{commentId}")
     @Results({
