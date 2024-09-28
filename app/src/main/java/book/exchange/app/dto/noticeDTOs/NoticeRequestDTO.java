@@ -18,5 +18,4 @@ public class NoticeRequestDTO {
     private UUID bookId;
     private UUID comicId;
     private UUID periodicalId;
-    private LocalDate timePosted;
 }
