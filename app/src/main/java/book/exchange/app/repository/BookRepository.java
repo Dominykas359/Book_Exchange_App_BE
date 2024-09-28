@@ -13,15 +13,13 @@ import java.util.UUID;
 public interface BookRepository {
 
     @Insert("INSERT INTO app.books " +
-            "(id, user_id, time_posted, release_year, title, publisher, author, book_language, status, price, page_count, cover, translator) " +
-            "VALUES(#{id}, #{userId}, #{timePosted}, #{releaseYear}, #{title}, #{publisher}, #{author}, #{bookLanguage}, #{status}, #{price}, #{pageCount}, #{cover}, #{translator})")
+            "(id, release_year, title, publisher, author, book_language, status, price, page_count, cover, translator) " +
+            "VALUES(#{id}, #{releaseYear}, #{title}, #{publisher}, #{author}, #{bookLanguage}, #{status}, #{price}, #{pageCount}, #{cover}, #{translator})")
     void createBook(Book book);
 
     @Select("SELECT * FROM app.books")
     @Results({
             @Result(property = "id", column = "id"),
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "timePosted", column = "time_posted"),
             @Result(property = "releaseYear", column = "release_year"),
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
@@ -38,8 +36,6 @@ public interface BookRepository {
     @Select("SELECT * FROM app.books WHERE id = #{id}")
     @Results({
             @Result(property = "id", column = "id"),
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "timePosted", column = "time_posted"),
             @Result(property = "releaseYear", column = "release_year"),
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
@@ -56,8 +52,6 @@ public interface BookRepository {
     @Select("SELECT * FROM app.books WHERE release_year = #{releaseYear}")
     @Results({
             @Result(property = "id", column = "id"),
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "timePosted", column = "time_posted"),
             @Result(property = "releaseYear", column = "release_year"),
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
@@ -74,8 +68,6 @@ public interface BookRepository {
     @Select("SELECT * FROM app.books WHERE price <= #{price}")
     @Results({
             @Result(property = "id", column = "id"),
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "timePosted", column = "time_posted"),
             @Result(property = "releaseYear", column = "release_year"),
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
@@ -92,8 +84,6 @@ public interface BookRepository {
     @Select("SELECT * FROM app.books WHERE LOWER(title) ILIKE '%' || LOWER(#{title}) || '%'")
     @Results({
             @Result(property = "id", column = "id"),
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "timePosted", column = "time_posted"),
             @Result(property = "releaseYear", column = "release_year"),
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
@@ -110,8 +100,6 @@ public interface BookRepository {
     @Select("SELECT * FROM app.books WHERE LOWER(publisher) ILIKE '%' || LOWER(#{publisher}) || '%'")
     @Results({
             @Result(property = "id", column = "id"),
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "timePosted", column = "time_posted"),
             @Result(property = "releaseYear", column = "release_year"),
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
@@ -128,8 +116,6 @@ public interface BookRepository {
     @Select("SELECT * FROM app.book WHERE LOWER(author) ILIKE '%' || LOWER(#{author}) || '%'")
     @Results({
             @Result(property = "id", column = "id"),
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "timePosted", column = "time_posted"),
             @Result(property = "releaseYear", column = "release_year"),
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
@@ -146,8 +132,6 @@ public interface BookRepository {
     @Select("SELECT * FROM app.books WHERE LOWER(book_language) ILIKE '%' || LOWER(#{bookLanguage}) || '%'")
     @Results({
             @Result(property = "id", column = "id"),
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "timePosted", column = "time_posted"),
             @Result(property = "releaseYear", column = "release_year"),
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
@@ -164,8 +148,6 @@ public interface BookRepository {
     @Select("SELECT * FROM app.books WHERE LOWER(status) ILIKE '%' || LOWER(#{status}) || '%'")
     @Results({
             @Result(property = "id", column = "id"),
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "timePosted", column = "time_posted"),
             @Result(property = "releaseYear", column = "release_year"),
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
