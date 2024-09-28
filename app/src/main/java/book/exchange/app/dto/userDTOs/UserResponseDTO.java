@@ -11,7 +11,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class LoginResponseDTO{
+public class UserResponseDTO {
 
     private UUID id;
     private String username;
