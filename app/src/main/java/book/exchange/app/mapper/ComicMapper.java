@@ -3,6 +3,7 @@ package book.exchange.app.mapper;
 import book.exchange.app.dto.comicDTOs.ComicRequestDTO;
 import book.exchange.app.dto.comicDTOs.ComicResponseDTO;
 import book.exchange.app.model.Comic;
+import book.exchange.app.model.Status;
 
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ public class ComicMapper {
                 .publisher(comic.getPublisher())
                 .author(comic.getAuthor())
                 .language(comic.getLanguage())
-                .status(comic.getStatus())
+                .status(comic.getStatus().name())
                 .price(comic.getPrice())
                 .pageCount(comic.getPageCount())
                 .colored(comic.getColored())
@@ -33,7 +34,7 @@ public class ComicMapper {
                 .publisher(comicRequestDTO.getPublisher())
                 .author(comicRequestDTO.getAuthor())
                 .language(comicRequestDTO.getLanguage())
-                .status(comicRequestDTO.getStatus())
+                .status(Status.valueOf(comicRequestDTO.getStatus()))
                 .price(comicRequestDTO.getPrice())
                 .pageCount(comicRequestDTO.getPageCount())
                 .colored(comicRequestDTO.getColored())

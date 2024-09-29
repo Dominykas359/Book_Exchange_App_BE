@@ -3,6 +3,7 @@ package book.exchange.app.mapper;
 import book.exchange.app.dto.periodicalDTOs.PeriodicalRequestDTO;
 import book.exchange.app.dto.periodicalDTOs.PeriodicalResponseDTO;
 import book.exchange.app.model.Periodical;
+import book.exchange.app.model.Status;
 
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ public class PeriodicalMapper {
                 .publisher(periodical.getPublisher())
                 .author(periodical.getAuthor())
                 .language(periodical.getLanguage())
-                .status(periodical.getStatus())
+                .status(periodical.getStatus().name())
                 .price(periodical.getPrice())
                 .number(periodical.getNumber())
                 .build();
@@ -32,7 +33,7 @@ public class PeriodicalMapper {
                 .publisher(periodicalRequestDTO.getPublisher())
                 .author(periodicalRequestDTO.getAuthor())
                 .language(periodicalRequestDTO.getLanguage())
-                .status(periodicalRequestDTO.getStatus())
+                .status(Status.valueOf(periodicalRequestDTO.getStatus()))
                 .price(periodicalRequestDTO.getPrice())
                 .number(periodicalRequestDTO.getNumber())
                 .build();
