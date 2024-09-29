@@ -43,7 +43,7 @@ public interface UserRepository {
 
     @Update("UPDATE app.users SET " +
             "username = #{username}, first_name = {firstName}, last_name = {lastName}, " +
-            "birthday = #{birthday}, role = #{role} " +
+            "birthday = #{birthday} " +
             "WHERE id = #{id}")
     void updateUser(User user);
 

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Getter
@@ -14,4 +15,5 @@ import java.util.UUID;
 public class NoticeResponseDTO extends NoticeRequestDTO{
 
     private UUID id;
+    private LocalDate timePosted;
 }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Getter
@@ -17,6 +18,6 @@ public class UserResponseDTO {
     private String username;
     private String firstName;
     private String lastName;
-    private String birthday;
+    private LocalDate birthday;
     private String role;
 }

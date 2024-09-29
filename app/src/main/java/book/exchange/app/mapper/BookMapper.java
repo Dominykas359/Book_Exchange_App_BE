@@ -3,6 +3,7 @@ package book.exchange.app.mapper;
 import book.exchange.app.dto.bookDTOs.BookRequestDTO;
 import book.exchange.app.dto.bookDTOs.BookResponseDTO;
 import book.exchange.app.model.Book;
+import book.exchange.app.model.Status;
 
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ public class BookMapper {
                 .publisher(book.getPublisher())
                 .author(book.getAuthor())
                 .language(book.getLanguage())
-                .status(book.getStatus())
+                .status(book.getStatus().name())
                 .price(book.getPrice())
                 .pageCount(book.getPageCount())
                 .cover(book.getCover())
@@ -34,7 +35,7 @@ public class BookMapper {
                 .publisher(bookRequestDTO.getPublisher())
                 .author(bookRequestDTO.getAuthor())
                 .language(bookRequestDTO.getLanguage())
-                .status(bookRequestDTO.getStatus())
+                .status(Status.valueOf(bookRequestDTO.getStatus()))
                 .price(bookRequestDTO.getPrice())
                 .pageCount(bookRequestDTO.getPageCount())
                 .cover(bookRequestDTO.getCover())

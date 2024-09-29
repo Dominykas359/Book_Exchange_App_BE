@@ -15,7 +15,7 @@ import java.util.UUID;
 public class Message {
 
     private UUID id;
-    private UUID senderId;
+    private UUID userId;
     private UUID chatId;
     private String text;
     private LocalDateTime timeSent;

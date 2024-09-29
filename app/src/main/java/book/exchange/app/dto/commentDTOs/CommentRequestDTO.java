@@ -14,7 +14,7 @@ import java.util.UUID;
 @SuperBuilder(toBuilder = true)
 public class CommentRequestDTO {
 
-    private UUID userID;
+    private UUID userId;
     private LocalDateTime timeSent;
     private String content;
     private UUID commentId;

@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -15,6 +16,9 @@ public interface CommentRepository {
             "(id, user_id, time_sent, content, comment_id, notice_id) " +
             "VALUES(#{id}, #{userId}, #{timeSent}, #{content}, #{commentId}, #{noticeId})")
     void createComment(Comment comment);
+
+    @Select("SELECT * FROM app.comment WHERE id = #{id}")
+    Optional<Comment> findCommentById(@Param("id") UUID id);
 
     @Select("SELECT * FROM app.comments WHERE notice_id = #{noticeId} AND comment_id IS NULL")
     @Results({

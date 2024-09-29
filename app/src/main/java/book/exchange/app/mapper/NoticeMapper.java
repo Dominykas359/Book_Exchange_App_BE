@@ -4,6 +4,7 @@ import book.exchange.app.dto.noticeDTOs.NoticeRequestDTO;
 import book.exchange.app.dto.noticeDTOs.NoticeResponseDTO;
 import book.exchange.app.model.Notice;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -28,8 +29,8 @@ public class NoticeMapper {
                 .userId(noticeRequestDTO.getUserId())
                 .bookId(noticeRequestDTO.getBookId())
                 .comicId(noticeRequestDTO.getComicId())
-                .periodicalId(noticeRequestDTO.getPeriodical())
-                .timePosted(LocalDateTime.now())
+                .periodicalId(noticeRequestDTO.getPeriodicalId())
+                .timePosted(LocalDate.now())
                 .build();
     }
 }
