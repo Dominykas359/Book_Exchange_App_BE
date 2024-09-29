@@ -18,8 +18,8 @@ public class Comment {
     private UUID id;
     private UUID userId;
     private UUID noticeId;
-    private LocalDateTime timePosted;
+    private LocalDateTime timeSent;
     private String content;
-    private UUID comment_id;
+    private UUID commentId;
     private List<Comment> replies;
 }
