@@ -25,7 +25,12 @@ public class ChatController {
     }
 
     @GetMapping("/{id}")
-    public List<ChatResponseDTO> getChats(UUID id){
+    public List<ChatResponseDTO> getChats(@PathVariable("id") UUID id){
         return chatService.getChatsByUser(id);
+    }
+
+    @GetMapping("/{id}/with-messages")
+    public ChatResponseDTO getChatById(@PathVariable("id") UUID id){
+        return chatService.getChatById(id);
     }
 }
