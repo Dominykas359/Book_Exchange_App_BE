@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalTime;
 import java.util.UUID;
 
 @Getter
@@ -14,4 +15,5 @@ import java.util.UUID;
 public class MessageResponseDTO extends MessageRequestDTO{
 
     private UUID id;
+    private LocalTime timeSent;
 }
