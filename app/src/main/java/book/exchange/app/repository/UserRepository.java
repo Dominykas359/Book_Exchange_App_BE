@@ -29,7 +29,7 @@ public interface UserRepository {
     })
     List<User> findAll();
 
-    @Select("SELECT * FROM app.users WHERE id = {id}")
+    @Select("SELECT * FROM app.users WHERE id = #{id}")
     @Results({
             @Result(property = "id", column = "id"),
             @Result(property = "username", column = "username"),
@@ -42,11 +42,11 @@ public interface UserRepository {
     Optional<User> findById(@Param("id") UUID id);
 
     @Update("UPDATE app.users SET " +
-            "username = #{username}, first_name = {firstName}, last_name = {lastName}, " +
+            "username = #{username}, first_name = #{firstName}, last_name = #{lastName}, " +
             "birthday = #{birthday} " +
             "WHERE id = #{id}")
     void updateUser(User user);
 
-    @Delete("DELETE FROM app.user WHERE id = #{id}")
+    @Delete("DELETE FROM app.users WHERE id = #{id}")
     void deleteUser(@Param("id") UUID id);
 }

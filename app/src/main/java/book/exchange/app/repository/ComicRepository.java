@@ -14,7 +14,7 @@ public interface ComicRepository {
 
     @Insert("INSERT INTO app.comics " +
             "(id, release_year, title, publisher, author, book_language, status, price, page_count, colored) " +
-            "VALUES(#{id}, #{releaseYear}, #{title}, #{publisher}, #{author}, #{bookLanguage}, #{status}, #{price}, #{pageCount}, #{colored})")
+            "VALUES(#{id}, #{releaseYear}, #{title}, #{publisher}, #{author}, #{language}, #{status}, #{price}, #{pageCount}, #{colored})")
     void createComic(Comic comic);
 
     @Select("SELECT * FROM app.comics")
@@ -24,7 +24,7 @@ public interface ComicRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "pageCount", column = "page_count"),
@@ -39,7 +39,7 @@ public interface ComicRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "pageCount", column = "page_count"),
@@ -54,7 +54,7 @@ public interface ComicRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "pageCount", column = "page_count"),
@@ -69,7 +69,7 @@ public interface ComicRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "pageCount", column = "page_count"),
@@ -84,7 +84,7 @@ public interface ComicRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "pageCount", column = "page_count"),
@@ -99,7 +99,7 @@ public interface ComicRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "pageCount", column = "page_count"),
@@ -114,7 +114,7 @@ public interface ComicRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "pageCount", column = "page_count"),
@@ -129,7 +129,7 @@ public interface ComicRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "pageCount", column = "page_count"),
@@ -144,7 +144,7 @@ public interface ComicRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "pageCount", column = "page_count"),
@@ -159,7 +159,7 @@ public interface ComicRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "pageCount", column = "page_count"),

@@ -14,7 +14,7 @@ public interface MessageRepository {
 
     @Insert("INSERT INTO app.messages " +
             "(id, user_id, chat_id, text, time_sent) " +
-            "VALUES(#{id}, #{userId}, #{chatId}, #{timeSent})")
+            "VALUES(#{id}, #{userId}, #{chatId}, #{text}, #{timeSent})")
     void createMessage(Message message);
 
     @Select("SELECT * FROM app.messages WHERE id = #{id}")

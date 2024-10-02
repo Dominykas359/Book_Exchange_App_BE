@@ -14,7 +14,7 @@ public interface BookRepository {
 
     @Insert("INSERT INTO app.books " +
             "(id, release_year, title, publisher, author, book_language, status, price, page_count, cover, translator) " +
-            "VALUES(#{id}, #{releaseYear}, #{title}, #{publisher}, #{author}, #{bookLanguage}, #{status}, #{price}, #{pageCount}, #{cover}, #{translator})")
+            "VALUES(#{id}, #{releaseYear}, #{title}, #{publisher}, #{author}, #{language}, #{status}, #{price}, #{pageCount}, #{cover}, #{translator})")
     void createBook(Book book);
 
     @Select("SELECT * FROM app.books")
@@ -24,7 +24,7 @@ public interface BookRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "pageCount", column = "page_count"),
@@ -40,7 +40,7 @@ public interface BookRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "pageCount", column = "page_count"),
@@ -56,7 +56,7 @@ public interface BookRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "pageCount", column = "page_count"),
@@ -72,7 +72,7 @@ public interface BookRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "pageCount", column = "page_count"),
@@ -88,7 +88,7 @@ public interface BookRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "pageCount", column = "page_count"),
@@ -104,7 +104,7 @@ public interface BookRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "pageCount", column = "page_count"),
@@ -120,7 +120,7 @@ public interface BookRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "pageCount", column = "page_count"),
@@ -136,7 +136,7 @@ public interface BookRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "pageCount", column = "page_count"),
@@ -152,7 +152,7 @@ public interface BookRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "pageCount", column = "page_count"),

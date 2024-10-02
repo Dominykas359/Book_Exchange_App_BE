@@ -14,7 +14,7 @@ public interface PeriodicalRepository {
 
     @Insert("INSERT INTO app.periodicals " +
             "(id, release_year, title, publisher, author, book_language, status, price, number) " +
-            "VALUES(#{id}, #{releaseYear}, #{title}, #{publisher}, #{author}, #{bookLanguage}, #{status}, #{price}, #{number})")
+            "VALUES(#{id}, #{releaseYear}, #{title}, #{publisher}, #{author}, #{language}, #{status}, #{price}, #{number})")
     void createPeriodical(Periodical periodical);
 
     @Select("SELECT * FROM app.periodicals")
@@ -24,7 +24,7 @@ public interface PeriodicalRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "number", column = "number")
@@ -38,7 +38,7 @@ public interface PeriodicalRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "number", column = "number")
@@ -52,7 +52,7 @@ public interface PeriodicalRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "number", column = "number")
@@ -66,7 +66,7 @@ public interface PeriodicalRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "number", column = "number")
@@ -80,7 +80,7 @@ public interface PeriodicalRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "number", column = "number")
@@ -94,7 +94,7 @@ public interface PeriodicalRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "number", column = "number")
@@ -108,7 +108,7 @@ public interface PeriodicalRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "number", column = "number")
@@ -122,7 +122,7 @@ public interface PeriodicalRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "number", column = "number")
@@ -136,7 +136,7 @@ public interface PeriodicalRepository {
             @Result(property = "title", column = "title"),
             @Result(property = "publisher", column = "publisher"),
             @Result(property = "author", column = "author"),
-            @Result(property = "bookLanguage", column = "book_language"),
+            @Result(property = "language", column = "book_language"),
             @Result(property = "status", column = "status"),
             @Result(property = "price", column = "price"),
             @Result(property = "number", column = "number")
