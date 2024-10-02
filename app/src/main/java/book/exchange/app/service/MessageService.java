@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
@@ -42,7 +43,8 @@ public class MessageService {
                 .orElseThrow(() -> new NoSuchElementException("Message not found"));
 
         message.setText(messageRequestDTO.getText());
-        message.setTimeSent(messageRequestDTO.getTimeSent());
+        message.setTimeSent(LocalTime.now());
+        messageRepository.updateMessage(message);
         return MessagesMapper.toDto(message);
     }
 

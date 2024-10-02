@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
@@ -21,27 +22,26 @@ public class CommentService {
 
     @Transactional
     public CommentResponseDTO createComment(CommentRequestDTO commentRequestDTO){
-
         Comment comment = CommentMapper.fromDto(commentRequestDTO);
         commentRepository.createComment(comment);
         return CommentMapper.toDto(comment);
     }
 
-    public List<CommentResponseDTO> getRepliesForComment(UUID id){
+    private void populateReplies(Comment comment) {
 
-        return commentRepository.getRepliesForComment(id)
-                .stream()
-                .map(CommentMapper::toDto)
-                .toList();
+        List<Comment> replies = commentRepository.getRepliesForComment(comment.getId());
+        comment.setReplies(replies);
+
+        for (Comment reply : replies) {
+            populateReplies(reply);
+        }
     }
 
     public List<CommentResponseDTO> getCommentsForNotice(UUID noticeId) {
 
         List<Comment> topLevelComments = commentRepository.getCommentForNotice(noticeId);
-
         for (Comment comment : topLevelComments) {
-            List<Comment> replies = commentRepository.getRepliesForComment(comment.getId());
-            comment.setReplies(replies);
+            populateReplies(comment);
         }
 
         return topLevelComments.stream()
@@ -51,12 +51,10 @@ public class CommentService {
 
     @Transactional
     public CommentResponseDTO updateComment(UUID id, CommentRequestDTO commentRequestDTO){
-
         Comment comment = commentRepository.findCommentById(id)
                 .orElseThrow(() -> new NoSuchElementException("Comment not found"));
         comment.setContent(commentRequestDTO.getContent());
-        comment.setTimeSent(commentRequestDTO.getTimeSent());
-
+        comment.setTimeSent(LocalTime.now());
         commentRepository.updateComment(comment);
         return CommentMapper.toDto(comment);
     }
