@@ -14,6 +14,9 @@ public class ChatMapper {
                 .id(chat.getId())
                 .userId(chat.getUserId())
                 .noticeId(chat.getNoticeId())
+                .messages(chat.getMessages() != null ?
+                        chat.getMessages().stream().map(MessagesMapper::toDto).toList()
+                        : null)
                 .build();
     }
 

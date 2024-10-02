@@ -5,6 +5,7 @@ import book.exchange.app.dto.messageDTOs.MessageResponseDTO;
 import book.exchange.app.model.Message;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.UUID;
 
 public class MessagesMapper {
@@ -27,7 +28,7 @@ public class MessagesMapper {
                 .userId(messageRequestDTO.getUserId())
                 .chatId(messageRequestDTO.getChatId())
                 .text(messageRequestDTO.getText())
-                .timeSent(LocalDateTime.now())
+                .timeSent(LocalTime.now())
                 .build();
     }
 }

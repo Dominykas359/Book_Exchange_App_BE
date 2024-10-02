@@ -5,6 +5,7 @@ import book.exchange.app.dto.commentDTOs.CommentResponseDTO;
 import book.exchange.app.model.Comment;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.UUID;
 
 public class CommentMapper {
@@ -18,6 +19,9 @@ public class CommentMapper {
                 .content(comment.getContent())
                 .commentId(comment.getCommentId())
                 .noticeId(comment.getNoticeId())
+                .replies(comment.getReplies() != null ?
+                        comment.getReplies().stream().map(CommentMapper::toDto).toList()
+                        : null)
                 .build();
     }
 
@@ -26,7 +30,7 @@ public class CommentMapper {
         return Comment.builder()
                 .id(UUID.randomUUID())
                 .userId(commentRequestDTO.getUserId())
-                .timeSent(LocalDateTime.now())
+                .timeSent(LocalTime.now())
                 .content(commentRequestDTO.getContent())
                 .commentId(commentRequestDTO.getCommentId())
                 .noticeId(commentRequestDTO.getNoticeId())
