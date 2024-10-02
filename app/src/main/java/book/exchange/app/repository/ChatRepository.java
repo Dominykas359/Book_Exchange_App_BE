@@ -21,10 +21,16 @@ public interface ChatRepository {
     @Results({
             @Result(property = "id", column = "id"),
             @Result(property = "userId", column = "user_id"),
-            @Result(property = "bookId", column = "book_id"),
-            @Result(property = "comicId", column = "comic_id"),
-            @Result(property = "periodicalId", column = "periodical_id")
+            @Result(property = "noticeId", column = "notice_id")
     })
     List<Chat> getChatsByUser(@Param("userId") UUID id);
+
+    @Select("SELECT * FROM app.chats WHERE id = #{id}")
+    @Results({
+            @Result(property = "id", column = "id"),
+            @Result(property = "userId", column = "user_id"),
+            @Result(property = "noticeId", column = "notice_id")
+    })
+    Optional<Chat> getChatById(@Param("id") UUID id);
 
 }

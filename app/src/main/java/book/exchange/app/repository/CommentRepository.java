@@ -17,7 +17,15 @@ public interface CommentRepository {
             "VALUES(#{id}, #{userId}, #{timeSent}, #{content}, #{commentId}, #{noticeId})")
     void createComment(Comment comment);
 
-    @Select("SELECT * FROM app.comment WHERE id = #{id}")
+    @Select("SELECT * FROM app.comments WHERE id = #{id}")
+    @Results({
+            @Result(property = "id", column = "Id"),
+            @Result(property = "userId", column = "user_id"),
+            @Result(property = "timeSent", column = "time_sent"),
+            @Result(property = "content", column = "content"),
+            @Result(property = "commentId", column = "comment_id"),
+            @Result(property = "noticeId", column = "notice_id")
+    })
     Optional<Comment> findCommentById(@Param("id") UUID id);
 
     @Select("SELECT * FROM app.comments WHERE notice_id = #{noticeId} AND comment_id IS NULL")
@@ -37,14 +45,14 @@ public interface CommentRepository {
             @Result(property = "id", column = "id"),
             @Result(property = "userId", column = "user_id"),
             @Result(property = "bookId", column = "book_id"),
-            @Result(property = "timePosted", column = "time_sent"),
+            @Result(property = "timeSent", column = "time_sent"),
             @Result(property = "content", column = "content"),
             @Result(property = "commentId", column = "comment_id")
     })
     List<Comment> getRepliesForComment(@Param("commentId") UUID commentId);
 
-    @Update("UPDATE app.comment SET " +
-            "time_posted = #{timePosted}, content = #{content} " +
+    @Update("UPDATE app.comments SET " +
+            "time_sent = #{timeSent}, content = #{content} " +
             "WHERE id = #{id}")
     void updateComment(Comment comment);
 

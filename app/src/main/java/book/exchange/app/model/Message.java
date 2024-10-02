@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.UUID;
 
 @Data
@@ -18,5 +19,5 @@ public class Message {
     private UUID userId;
     private UUID chatId;
     private String text;
-    private LocalDateTime timeSent;
+    private LocalTime timeSent;
 }

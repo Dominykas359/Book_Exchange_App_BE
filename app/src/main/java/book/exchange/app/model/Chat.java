@@ -1,5 +1,6 @@
 package book.exchange.app.model;
 
+import book.exchange.app.dto.messageDTOs.MessageResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

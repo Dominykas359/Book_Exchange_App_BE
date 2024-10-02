@@ -17,5 +17,4 @@ public class MessageRequestDTO {
     private UUID userId;
     private UUID chatId;
     private String text;
-    private LocalDateTime timeSent;
 }

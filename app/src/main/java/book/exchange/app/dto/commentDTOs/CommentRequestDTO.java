@@ -15,7 +15,6 @@ import java.util.UUID;
 public class CommentRequestDTO {
 
     private UUID userId;
-    private LocalDateTime timeSent;
     private String content;
     private UUID commentId;
     private UUID noticeId;
