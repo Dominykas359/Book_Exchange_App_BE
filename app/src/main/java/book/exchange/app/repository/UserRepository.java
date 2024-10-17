@@ -41,6 +41,18 @@ public interface UserRepository {
     })
     Optional<User> findById(@Param("id") UUID id);
 
+    @Select("SELECT * FROM app.users WHERE username = #{username}")
+    @Results({
+            @Result(property = "id", column = "id"),
+            @Result(property = "username", column = "username"),
+            @Result(property = "password", column = "password"),
+            @Result(property = "firstName", column = "first_name"),
+            @Result(property = "lastName", column = "last_name"),
+            @Result(property = "birthday", column = "birthday"),
+            @Result(property = "role", column = "role")
+    })
+    Optional<User> findByUsername(@Param("username") String username);
+
     @Update("UPDATE app.users SET " +
             "username = #{username}, first_name = #{firstName}, last_name = #{lastName}, " +
             "birthday = #{birthday} " +
