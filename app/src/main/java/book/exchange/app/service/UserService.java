@@ -1,11 +1,14 @@
 package book.exchange.app.service;
 
+import book.exchange.app.dto.userDTOs.AuthenticationResponseDTO;
+import book.exchange.app.dto.userDTOs.LoginRequestDTO;
 import book.exchange.app.dto.userDTOs.RegistrationRequestDTO;
 import book.exchange.app.dto.userDTOs.UserResponseDTO;
 import book.exchange.app.mapper.UserMapper;
 import book.exchange.app.model.User;
 import book.exchange.app.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,13 +22,6 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    @Transactional
-    public UserResponseDTO createUser(RegistrationRequestDTO registrationRequestDTO){
-
-        User user = UserMapper.fromDto(registrationRequestDTO);
-        userRepository.createUser(user);
-        return UserMapper.toDto(user);
-    }
 
     public List<UserResponseDTO> getAllUsers(){
 
