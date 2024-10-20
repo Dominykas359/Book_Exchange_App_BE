@@ -29,7 +29,7 @@ public class AuthenticationService {
 
         User user = User.builder()
                 .id(UUID.randomUUID())
-                .username(request.getUsername())
+                .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
@@ -40,7 +40,7 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponseDTO.builder()
                 .id(user.getId())
-                .username(user.getUsername())
+                .email(user.getEmail())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .birthday(user.getBirthday())
@@ -52,16 +52,16 @@ public class AuthenticationService {
     public AuthenticationResponseDTO login(LoginRequestDTO request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
+                        request.getEmail(),
                         request.getPassword()
                 )
         );
-        var user = userRepository.findByUsername(request.getUsername())
+        var user = userRepository.findByUsername(request.getEmail())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponseDTO.builder()
                 .id(user.getId())
-                .username(user.getUsername())
+                .email(user.getEmail())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .birthday(user.getBirthday())

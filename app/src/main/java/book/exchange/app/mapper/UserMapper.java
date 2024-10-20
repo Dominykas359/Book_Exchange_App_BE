@@ -13,7 +13,7 @@ public class UserMapper {
 
         return UserResponseDTO.builder()
                 .id(user.getId())
-                .username(user.getUsername())
+                .email(user.getEmail())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .birthday(user.getBirthday())
@@ -25,7 +25,7 @@ public class UserMapper {
 
         return User.builder()
                 .id(UUID.randomUUID())
-                .username(registrationRequestDTO.getUsername())
+                .email(registrationRequestDTO.getEmail())
                 .password(registrationRequestDTO.getPassword())
                 .firstName(registrationRequestDTO.getFirstName())
                 .lastName(registrationRequestDTO.getLastName())

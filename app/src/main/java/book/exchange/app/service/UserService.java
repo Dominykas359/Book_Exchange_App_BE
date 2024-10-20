@@ -43,7 +43,7 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("User not found"));
 
-        user.setUsername(registrationRequestDTO.getUsername());
+        user.setEmail(registrationRequestDTO.getEmail());
         user.setFirstName(registrationRequestDTO.getFirstName());
         user.setLastName(registrationRequestDTO.getLastName());
         user.setBirthday(registrationRequestDTO.getBirthday());
