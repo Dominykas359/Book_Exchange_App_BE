@@ -11,6 +11,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder(toBuilder = true)
 public class LoginRequestDTO {
 
-    private String username;
+    private String email;
     private String password;
 }
