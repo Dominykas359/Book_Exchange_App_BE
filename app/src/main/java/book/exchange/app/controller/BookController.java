@@ -5,10 +5,9 @@ import book.exchange.app.dto.bookDTOs.BookResponseDTO;
 import book.exchange.app.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,5 +21,23 @@ public class BookController {
             @RequestBody BookRequestDTO bookRequestDTO
             ){
         return ResponseEntity.ok(bookService.createBook(bookRequestDTO));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BookResponseDTO> getById(@PathVariable("id") UUID id){
+        return ResponseEntity.ok(bookService.findByBookId(id));
+    }
+
+    @PutMapping("/{id}")
+    public BookResponseDTO updateBook(
+            @PathVariable("id") UUID id,
+            @RequestBody BookRequestDTO bookRequestDTO
+    ){
+        return bookService.updateBook(id, bookRequestDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteBook(@PathVariable("id") UUID id){
+        bookService.deleteBook(id);
     }
 }

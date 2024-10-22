@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
@@ -17,6 +19,6 @@ import java.util.UUID;
 public class CommentResponseDTO extends CommentRequestDTO{
 
     private UUID id;
-    private LocalTime timeSent;
+    private LocalDateTime timeSent;
     private List<CommentResponseDTO> replies;
 }

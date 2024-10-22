@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -19,7 +20,7 @@ public class Comment {
     private UUID id;
     private UUID userId;
     private UUID noticeId;
-    private LocalTime timeSent;
+    private LocalDateTime timeSent;
     private String content;
     private UUID commentId;
     private List<Comment> replies;
