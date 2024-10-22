@@ -1,5 +1,6 @@
 package book.exchange.app.repository;
 
+import book.exchange.app.model.Book;
 import book.exchange.app.model.Comic;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
@@ -17,21 +18,6 @@ public interface ComicRepository {
             "VALUES(#{id}, #{releaseYear}, #{title}, #{publisher}, #{author}, #{language}, #{status}, #{price}, #{pageCount}, #{colored})")
     void createComic(Comic comic);
 
-    @Select("SELECT * FROM app.comics")
-    @Results({
-            @Result(property = "id", column = "id"),
-            @Result(property = "releaseYear", column = "release_year"),
-            @Result(property = "title", column = "title"),
-            @Result(property = "publisher", column = "publisher"),
-            @Result(property = "author", column = "author"),
-            @Result(property = "language", column = "book_language"),
-            @Result(property = "status", column = "status"),
-            @Result(property = "price", column = "price"),
-            @Result(property = "pageCount", column = "page_count"),
-            @Result(property = "colored", column = "colored")
-    })
-    List<Comic> findAll();
-
     @Select("SELECT * FROM app.comics WHERE id = #{id}")
     @Results({
             @Result(property = "id", column = "id"),
@@ -45,125 +31,14 @@ public interface ComicRepository {
             @Result(property = "pageCount", column = "page_count"),
             @Result(property = "colored", column = "colored")
     })
-    Optional<Comic> findById(@Param("id") UUID id);
+    Optional<Comic> findComicById(@Param("id") UUID id);
 
-    @Select("SELECT * FROM app.comics WHERE release_year = #{releaseYear}")
-    @Results({
-            @Result(property = "id", column = "id"),
-            @Result(property = "releaseYear", column = "release_year"),
-            @Result(property = "title", column = "title"),
-            @Result(property = "publisher", column = "publisher"),
-            @Result(property = "author", column = "author"),
-            @Result(property = "language", column = "book_language"),
-            @Result(property = "status", column = "status"),
-            @Result(property = "price", column = "price"),
-            @Result(property = "pageCount", column = "page_count"),
-            @Result(property = "colored", column = "colored")
-    })
-    List<Comic> findByYear(@Param("releaseYear") Integer releaseYear);
+    @Update("UPDATE app.comics SET " +
+            "release_year = #{releaseYear}, title = #{title}, publisher = #{publisher}, author = #{author}, " +
+            "book_language = #{language}, status = #{status}, price = #{price}, page_count = #{pageCount}, " +
+            "colored = #{colored} WHERE id = #{id}")
+    void updateComic(Comic comic);
 
-    @Select("SELECT * FROM app.comics WHERE price <= #{price}")
-    @Results({
-            @Result(property = "id", column = "id"),
-            @Result(property = "releaseYear", column = "release_year"),
-            @Result(property = "title", column = "title"),
-            @Result(property = "publisher", column = "publisher"),
-            @Result(property = "author", column = "author"),
-            @Result(property = "language", column = "book_language"),
-            @Result(property = "status", column = "status"),
-            @Result(property = "price", column = "price"),
-            @Result(property = "pageCount", column = "page_count"),
-            @Result(property = "colored", column = "colored")
-    })
-    List<Comic> findByPrice(@Param("price") Double price);
-
-    @Select("SELECT * FROM app.comics WHERE LOWER(title) ILIKE '%' || LOWER(#{title}) || '%'")
-    @Results({
-            @Result(property = "id", column = "id"),
-            @Result(property = "releaseYear", column = "release_year"),
-            @Result(property = "title", column = "title"),
-            @Result(property = "publisher", column = "publisher"),
-            @Result(property = "author", column = "author"),
-            @Result(property = "language", column = "book_language"),
-            @Result(property = "status", column = "status"),
-            @Result(property = "price", column = "price"),
-            @Result(property = "pageCount", column = "page_count"),
-            @Result(property = "colored", column = "colored")
-    })
-    List<Comic> findByTitle(@Param("title") String title);
-
-    @Select("SELECT * FROM app.comics WHERE LOWER(publisher) ILIKE '%' || LOWER(#{publisher}) || '%'")
-    @Results({
-            @Result(property = "id", column = "id"),
-            @Result(property = "releaseYear", column = "release_year"),
-            @Result(property = "title", column = "title"),
-            @Result(property = "publisher", column = "publisher"),
-            @Result(property = "author", column = "author"),
-            @Result(property = "language", column = "book_language"),
-            @Result(property = "status", column = "status"),
-            @Result(property = "price", column = "price"),
-            @Result(property = "pageCount", column = "page_count"),
-            @Result(property = "colored", column = "colored")
-    })
-    List<Comic> findByPublisher(@Param("publisher") String publisher);
-
-    @Select("SELECT * FROM app.comics WHERE LOWER(author) ILIKE '%' || LOWER(#{author}) || '%'")
-    @Results({
-            @Result(property = "id", column = "id"),
-            @Result(property = "releaseYear", column = "release_year"),
-            @Result(property = "title", column = "title"),
-            @Result(property = "publisher", column = "publisher"),
-            @Result(property = "author", column = "author"),
-            @Result(property = "language", column = "book_language"),
-            @Result(property = "status", column = "status"),
-            @Result(property = "price", column = "price"),
-            @Result(property = "pageCount", column = "page_count"),
-            @Result(property = "colored", column = "colored")
-    })
-    List<Comic> findByAuthor(@Param("author") String author);
-
-    @Select("SELECT * FROM app.comics WHERE LOWER(book_language) ILIKE '%' || LOWER(#{bookLanguage}) || '%'")
-    @Results({
-            @Result(property = "id", column = "id"),
-            @Result(property = "releaseYear", column = "release_year"),
-            @Result(property = "title", column = "title"),
-            @Result(property = "publisher", column = "publisher"),
-            @Result(property = "author", column = "author"),
-            @Result(property = "language", column = "book_language"),
-            @Result(property = "status", column = "status"),
-            @Result(property = "price", column = "price"),
-            @Result(property = "pageCount", column = "page_count"),
-            @Result(property = "colored", column = "colored")
-    })
-    List<Comic> findByBookLanguage(@Param("bookLanguage") String bookLanguage);
-
-    @Select("SELECT * FROM app.comics WHERE LOWER(status) ILIKE '%' || LOWER(#{status}) || '%'")
-    @Results({
-            @Result(property = "id", column = "id"),
-            @Result(property = "releaseYear", column = "release_year"),
-            @Result(property = "title", column = "title"),
-            @Result(property = "publisher", column = "publisher"),
-            @Result(property = "author", column = "author"),
-            @Result(property = "language", column = "book_language"),
-            @Result(property = "status", column = "status"),
-            @Result(property = "price", column = "price"),
-            @Result(property = "pageCount", column = "page_count"),
-            @Result(property = "colored", column = "colored")
-    })
-    List<Comic> findByStatus(@Param("status") String status);
-
-    @Select("SELECT * FROM app.comics WHERE colored = #{colored}")
-    @Results({
-            @Result(property = "id", column = "id"),
-            @Result(property = "releaseYear", column = "release_year"),
-            @Result(property = "title", column = "title"),
-            @Result(property = "publisher", column = "publisher"),
-            @Result(property = "author", column = "author"),
-            @Result(property = "language", column = "book_language"),
-            @Result(property = "status", column = "status"),
-            @Result(property = "price", column = "price"),
-            @Result(property = "pageCount", column = "page_count"),
-            @Result(property = "colored", column = "colored")
-    })
-    List<Comic> findByColored(@Param("colored") Boolean colored);
+    @Delete("DELETE FROM app.comics WHERE id = #{id}")
+    void deleteComic(@Param("id") UUID id);
 }

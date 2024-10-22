@@ -39,7 +39,7 @@ public class CommentController {
         return commentService.updateComment(id, commentRequestDTO);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void deleteComment(@PathVariable("id") UUID id){
         commentService.deleteComment(id);
     }

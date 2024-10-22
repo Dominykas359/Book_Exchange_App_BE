@@ -1,5 +1,6 @@
 package book.exchange.app.repository;
 
+import book.exchange.app.model.Comic;
 import book.exchange.app.model.Periodical;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
@@ -17,20 +18,6 @@ public interface PeriodicalRepository {
             "VALUES(#{id}, #{releaseYear}, #{title}, #{publisher}, #{author}, #{language}, #{status}, #{price}, #{number})")
     void createPeriodical(Periodical periodical);
 
-    @Select("SELECT * FROM app.periodicals")
-    @Results({
-            @Result(property = "id", column = "id"),
-            @Result(property = "releaseYear", column = "release_year"),
-            @Result(property = "title", column = "title"),
-            @Result(property = "publisher", column = "publisher"),
-            @Result(property = "author", column = "author"),
-            @Result(property = "language", column = "book_language"),
-            @Result(property = "status", column = "status"),
-            @Result(property = "price", column = "price"),
-            @Result(property = "number", column = "number")
-    })
-    List<Periodical> findAll();
-
     @Select("SELECT * FROM app.periodicals WHERE id = #{id}")
     @Results({
             @Result(property = "id", column = "id"),
@@ -43,103 +30,13 @@ public interface PeriodicalRepository {
             @Result(property = "price", column = "price"),
             @Result(property = "number", column = "number")
     })
-    Optional<Periodical> findById(@Param("id") UUID id);
+    Optional<Periodical> findPeriodicalById(@Param("id") UUID id);
 
-    @Select("SELECT * FROM app.periodicals WHERE release_year = #{releaseYear}")
-    @Results({
-            @Result(property = "id", column = "id"),
-            @Result(property = "releaseYear", column = "release_year"),
-            @Result(property = "title", column = "title"),
-            @Result(property = "publisher", column = "publisher"),
-            @Result(property = "author", column = "author"),
-            @Result(property = "language", column = "book_language"),
-            @Result(property = "status", column = "status"),
-            @Result(property = "price", column = "price"),
-            @Result(property = "number", column = "number")
-    })
-    List<Periodical> findByYear(@Param("releaseYear") Integer releaseYear);
+    @Update("UPDATE app.periodicals SET " +
+            "release_year = #{releaseYear}, title = #{title}, publisher = #{publisher}, author = #{author}, " +
+            "book_language = #{language}, status = #{status}, price = #{price}, number = #{number} WHERE id = #{id}")
+    void updatePeriodical(Periodical periodical);
 
-    @Select("SELECT * FROM app.periodicals WHERE price <= #{price}")
-    @Results({
-            @Result(property = "id", column = "id"),
-            @Result(property = "releaseYear", column = "release_year"),
-            @Result(property = "title", column = "title"),
-            @Result(property = "publisher", column = "publisher"),
-            @Result(property = "author", column = "author"),
-            @Result(property = "language", column = "book_language"),
-            @Result(property = "status", column = "status"),
-            @Result(property = "price", column = "price"),
-            @Result(property = "number", column = "number")
-    })
-    List<Periodical> findByPrice(@Param("price") Double price);
-
-    @Select("SELECT * FROM app.periodicals WHERE LOWER(title) ILIKE '%' || LOWER(#{title}) || '%'")
-    @Results({
-            @Result(property = "id", column = "id"),
-            @Result(property = "releaseYear", column = "release_year"),
-            @Result(property = "title", column = "title"),
-            @Result(property = "publisher", column = "publisher"),
-            @Result(property = "author", column = "author"),
-            @Result(property = "language", column = "book_language"),
-            @Result(property = "status", column = "status"),
-            @Result(property = "price", column = "price"),
-            @Result(property = "number", column = "number")
-    })
-    List<Periodical> findByTitle(@Param("title") String title);
-
-    @Select("SELECT * FROM app.periodicals WHERE LOWER(publisher) ILIKE '%' || LOWER(#{publisher}) || '%'")
-    @Results({
-            @Result(property = "id", column = "id"),
-            @Result(property = "releaseYear", column = "release_year"),
-            @Result(property = "title", column = "title"),
-            @Result(property = "publisher", column = "publisher"),
-            @Result(property = "author", column = "author"),
-            @Result(property = "language", column = "book_language"),
-            @Result(property = "status", column = "status"),
-            @Result(property = "price", column = "price"),
-            @Result(property = "number", column = "number")
-    })
-    List<Periodical> findByPublisher(@Param("publisher") String publisher);
-
-    @Select("SELECT * FROM app.periodicals WHERE LOWER(author) ILIKE '%' || LOWER(#{author}) || '%'")
-    @Results({
-            @Result(property = "id", column = "id"),
-            @Result(property = "releaseYear", column = "release_year"),
-            @Result(property = "title", column = "title"),
-            @Result(property = "publisher", column = "publisher"),
-            @Result(property = "author", column = "author"),
-            @Result(property = "language", column = "book_language"),
-            @Result(property = "status", column = "status"),
-            @Result(property = "price", column = "price"),
-            @Result(property = "number", column = "number")
-    })
-    List<Periodical> findByAuthor(@Param("author") String author);
-
-    @Select("SELECT * FROM app.periodicals WHERE LOWER(book_language) ILIKE '%' || LOWER(#{bookLanguage}) || '%'")
-    @Results({
-            @Result(property = "id", column = "id"),
-            @Result(property = "releaseYear", column = "release_year"),
-            @Result(property = "title", column = "title"),
-            @Result(property = "publisher", column = "publisher"),
-            @Result(property = "author", column = "author"),
-            @Result(property = "language", column = "book_language"),
-            @Result(property = "status", column = "status"),
-            @Result(property = "price", column = "price"),
-            @Result(property = "number", column = "number")
-    })
-    List<Periodical> findByBookLanguage(@Param("bookLanguage") String bookLanguage);
-
-    @Select("SELECT * FROM app.periodicals WHERE LOWER(status) ILIKE '%' || LOWER(#{status}) || '%'")
-    @Results({
-            @Result(property = "id", column = "id"),
-            @Result(property = "releaseYear", column = "release_year"),
-            @Result(property = "title", column = "title"),
-            @Result(property = "publisher", column = "publisher"),
-            @Result(property = "author", column = "author"),
-            @Result(property = "language", column = "book_language"),
-            @Result(property = "status", column = "status"),
-            @Result(property = "price", column = "price"),
-            @Result(property = "number", column = "number")
-    })
-    List<Periodical> findByStatus(@Param("status") String status);
+    @Delete("DELETE FROM app.periodicals WHERE id = #{id}")
+    void deletePeriodical(@Param("id") UUID id);
 }
