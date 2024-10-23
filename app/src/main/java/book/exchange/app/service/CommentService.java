@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -54,7 +56,7 @@ public class CommentService {
         Comment comment = commentRepository.findCommentById(id)
                 .orElseThrow(() -> new NoSuchElementException("Comment not found"));
         comment.setContent(commentRequestDTO.getContent());
-        comment.setTimeSent(LocalTime.now());
+        comment.setTimeSent(LocalDateTime.now());
         commentRepository.updateComment(comment);
         return CommentMapper.toDto(comment);
     }

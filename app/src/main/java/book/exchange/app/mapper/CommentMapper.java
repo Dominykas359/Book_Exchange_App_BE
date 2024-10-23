@@ -4,6 +4,7 @@ import book.exchange.app.dto.commentDTOs.CommentRequestDTO;
 import book.exchange.app.dto.commentDTOs.CommentResponseDTO;
 import book.exchange.app.model.Comment;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.UUID;
@@ -30,7 +31,7 @@ public class CommentMapper {
         return Comment.builder()
                 .id(UUID.randomUUID())
                 .userId(commentRequestDTO.getUserId())
-                .timeSent(LocalTime.now())
+                .timeSent(LocalDateTime.now())
                 .content(commentRequestDTO.getContent())
                 .commentId(commentRequestDTO.getCommentId())
                 .noticeId(commentRequestDTO.getNoticeId())
