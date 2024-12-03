@@ -8,10 +8,7 @@ import book.exchange.app.service.AuthenticationService;
 import book.exchange.app.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
+    private final UserService userService;
 
     @PostMapping("/registration")
     public ResponseEntity<UserResponseDTO> createUser(
@@ -32,5 +30,10 @@ public class AuthenticationController {
             @RequestBody LoginRequestDTO request
     ){
         return ResponseEntity.ok(authenticationService.login(request));
+    }
+
+    @GetMapping("/check-email/{email}")
+    public ResponseEntity<UserResponseDTO> checkEmail(@PathVariable("email") String email){
+        return ResponseEntity.ok(userService.findByEmail(email));
     }
 }

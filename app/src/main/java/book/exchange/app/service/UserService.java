@@ -9,6 +9,7 @@ import book.exchange.app.model.User;
 import book.exchange.app.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,7 @@ import java.util.UUID;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
 
     public List<UserResponseDTO> getAllUsers(){
@@ -37,6 +39,12 @@ public class UserService {
                 .orElseThrow(() -> new NoSuchElementException("User not found")));
     }
 
+    public UserResponseDTO findByEmail(String email){
+
+        return UserMapper.toDto(userRepository.findByUsername(email)
+                .orElseThrow(() -> new NoSuchElementException("User with this email not found")));
+    }
+
     @Transactional
     public UserResponseDTO updateUser(UUID id, RegistrationRequestDTO registrationRequestDTO){
 
@@ -48,6 +56,17 @@ public class UserService {
         user.setLastName(registrationRequestDTO.getLastName());
         user.setBirthday(registrationRequestDTO.getBirthday());
         userRepository.updateUser(user);
+        return UserMapper.toDto(user);
+    }
+
+    @Transactional
+    public UserResponseDTO changePassword(UUID id, RegistrationRequestDTO registrationRequestDTO){
+
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("User not found"));
+
+        user.setPassword(passwordEncoder.encode(registrationRequestDTO.getPassword()));
+        userRepository.changePassword(user);
         return UserMapper.toDto(user);
     }
 

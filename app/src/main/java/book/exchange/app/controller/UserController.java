@@ -27,6 +27,14 @@ public class UserController {
         return ResponseEntity.ok(userService.findUserById(id));
     }
 
+    @PutMapping("/change-password/{id}")
+    public UserResponseDTO changePassword(
+            @PathVariable("id") UUID id,
+            @RequestBody RegistrationRequestDTO registrationRequestDTO
+    ){
+        return userService.changePassword(id, registrationRequestDTO);
+    }
+
     @PutMapping("/{id}")
     public UserResponseDTO updateUser(
             @PathVariable("id") UUID id,

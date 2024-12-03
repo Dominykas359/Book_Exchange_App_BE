@@ -59,6 +59,10 @@ public interface UserRepository {
             "WHERE id = #{id}")
     void updateUser(User user);
 
+    @Update("UPDATE app.users SET " +
+            "password = #{password} WHERE id = #{id}")
+    void changePassword(User user);
+
     @Delete("DELETE FROM app.users WHERE id = #{id}")
     void deleteUser(@Param("id") UUID id);
 }
