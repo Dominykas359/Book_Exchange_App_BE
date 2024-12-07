@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Service
@@ -56,6 +57,12 @@ public class NoticeService {
                 .stream()
                 .map(NoticeMapper::toDto)
                 .toList();
+    }
+
+    public NoticeResponseDTO findById(UUID id){
+
+        return NoticeMapper.toDto(noticeRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Notice not found")));
     }
 
     @Transactional

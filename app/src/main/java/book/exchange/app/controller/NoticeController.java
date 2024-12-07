@@ -44,6 +44,12 @@ public class NoticeController {
         return noticeService.getAllPeriodicalNotices();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<NoticeResponseDTO> findById(@PathVariable("id") UUID id){
+
+        return ResponseEntity.ok(noticeService.findById(id));
+    }
+
     @DeleteMapping("/{id}")
     public void deleteNotice(@PathVariable("id") UUID id){
         noticeService.deleteNotice(id);

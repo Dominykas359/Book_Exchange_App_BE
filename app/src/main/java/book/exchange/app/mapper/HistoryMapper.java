@@ -14,6 +14,7 @@ public class HistoryMapper {
                 .id(history.getId())
                 .userId(history.getUserId())
                 .noticeId(history.getNoticeId())
+                .buyer(history.getBuyer())
                 .build();
     }
 
@@ -23,6 +24,7 @@ public class HistoryMapper {
                 .id(UUID.randomUUID())
                 .userId(historyRequestDTO.getUserId())
                 .noticeId(historyRequestDTO.getNoticeId())
+                .buyer(historyRequestDTO.getBuyer())
                 .build();
     }
 }

@@ -16,4 +16,5 @@ public class History {
     private UUID id;
     private UUID noticeId;
     private UUID userId;
+    private UUID buyer;
 }

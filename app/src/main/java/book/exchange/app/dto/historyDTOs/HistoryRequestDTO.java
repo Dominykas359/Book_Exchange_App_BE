@@ -15,4 +15,5 @@ public class HistoryRequestDTO {
 
     private UUID userId;
     private UUID noticeId;
+    private UUID buyer;
 }
