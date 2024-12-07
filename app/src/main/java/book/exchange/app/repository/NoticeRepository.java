@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -59,6 +60,17 @@ public interface NoticeRepository {
             @Result(property = "timePosted", column = "time_posted")
     })
     List<Notice> getAllPeriodicalNotices();
+
+    @Select("SELECT * FROM app.notices WHERE id = #{id}")
+    @Results({
+            @Result(property = "id", column = "id"),
+            @Result(property = "userId", column = "user_id"),
+            @Result(property = "bookId", column = "book_id"),
+            @Result(property = "comicId", column = "comic_id"),
+            @Result(property = "periodicalId", column = "periodical_id"),
+            @Result(property = "timePosted", column = "time_posted")
+    })
+    Optional<Notice> findById(@Param("id") UUID id);
 
     @Delete("DELETE FROM app.notices WHERE id = #{id}")
     @Results({
