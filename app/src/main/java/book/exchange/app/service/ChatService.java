@@ -45,8 +45,16 @@ public class ChatService {
 
         List<Message> messages = messageRepository.getAllMessages(chat.getId());
 
+        messages.sort((message1, message2) -> message1.getTimeSent().compareTo(message2.getTimeSent()));
+
         chat.setMessages(messages);
 
         return ChatMapper.toDto(chat);
+    }
+
+    public ChatResponseDTO getChatByNoticeId(UUID id){
+
+        return ChatMapper.toDto(chatRepository.getChatByNoticeId(id)
+                .orElseThrow(() -> new NoSuchElementException("Chat not found")));
     }
 }

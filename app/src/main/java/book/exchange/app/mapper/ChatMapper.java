@@ -17,6 +17,7 @@ public class ChatMapper {
                 .messages(chat.getMessages() != null ?
                         chat.getMessages().stream().map(MessagesMapper::toDto).toList()
                         : null)
+                .receiver(chat.getReceiver())
                 .build();
     }
 
@@ -26,6 +27,7 @@ public class ChatMapper {
                 .id(UUID.randomUUID())
                 .userId(chatRequestDTO.getUserId())
                 .noticeId(chatRequestDTO.getNoticeId())
+                .receiver(chatRequestDTO.getReceiver())
                 .build();
     }
 }

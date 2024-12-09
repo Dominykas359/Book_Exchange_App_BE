@@ -2,6 +2,7 @@ package book.exchange.app.controller;
 
 import book.exchange.app.dto.chatDTOs.ChatRequestDTO;
 import book.exchange.app.dto.chatDTOs.ChatResponseDTO;
+import book.exchange.app.model.Chat;
 import book.exchange.app.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -32,5 +33,10 @@ public class ChatController {
     @GetMapping("/{id}/with-messages")
     public ChatResponseDTO getChatById(@PathVariable("id") UUID id){
         return chatService.getChatById(id);
+    }
+
+    @GetMapping("/for-notice/{id}")
+    public ChatResponseDTO getChatByNoticeId(@PathVariable("id") UUID id){
+        return chatService.getChatByNoticeId(id);
     }
 }
