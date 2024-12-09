@@ -19,4 +19,5 @@ public class Chat {
     private UUID userId;
     private UUID noticeId;
     private List<Message> messages;
+    private UUID receiver;
 }

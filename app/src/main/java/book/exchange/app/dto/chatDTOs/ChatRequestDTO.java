@@ -15,4 +15,5 @@ public class ChatRequestDTO {
 
     private UUID userId;
     private UUID noticeId;
+    private UUID receiver;
 }

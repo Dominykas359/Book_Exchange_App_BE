@@ -45,7 +45,6 @@ public class MessageService {
                 .orElseThrow(() -> new NoSuchElementException("Message not found"));
 
         message.setText(messageRequestDTO.getText());
-        message.setTimeSent(LocalDateTime.now());
         messageRepository.updateMessage(message);
         return MessagesMapper.toDto(message);
     }
