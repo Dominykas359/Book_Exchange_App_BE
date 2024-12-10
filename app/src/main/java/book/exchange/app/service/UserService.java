@@ -55,6 +55,7 @@ public class UserService {
         user.setFirstName(registrationRequestDTO.getFirstName());
         user.setLastName(registrationRequestDTO.getLastName());
         user.setBirthday(registrationRequestDTO.getBirthday());
+        user.setRole(registrationRequestDTO.getRole());
         userRepository.updateUser(user);
         return UserMapper.toDto(user);
     }

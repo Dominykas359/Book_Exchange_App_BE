@@ -1,5 +1,6 @@
 package book.exchange.app.dto.userDTOs;
 
+import book.exchange.app.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,4 +19,5 @@ public class RegistrationRequestDTO {
     private String firstName;
     private String lastName;
     private LocalDate birthday;
+    private Role role;
 }
