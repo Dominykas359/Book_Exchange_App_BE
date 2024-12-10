@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -23,6 +24,12 @@ public class PeriodicalController {
             @RequestBody PeriodicalRequestDTO periodicalRequestDTO
             ){
         return ResponseEntity.ok(periodicalService.createPeriodical(periodicalRequestDTO));
+    }
+
+    @GetMapping
+    public List<PeriodicalResponseDTO> getAllPeriodicals(){
+
+        return periodicalService.getAllPeriodicals();
     }
 
     @GetMapping("/{id}")

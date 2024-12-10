@@ -2,11 +2,14 @@ package book.exchange.app.controller;
 
 import book.exchange.app.dto.noticeDTOs.NoticeRequestDTO;
 import book.exchange.app.dto.noticeDTOs.NoticeResponseDTO;
+import book.exchange.app.model.Filters;
 import book.exchange.app.service.NoticeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,7 +28,7 @@ public class NoticeController {
     }
 
     @GetMapping
-    public List<NoticeResponseDTO> getAllNotices(){
+    public List<NoticeResponseDTO> getAllNotices() {
         return noticeService.getAllNotices();
     }
 
