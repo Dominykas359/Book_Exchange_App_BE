@@ -3,6 +3,7 @@ package book.exchange.app.service;
 import book.exchange.app.dto.noticeDTOs.NoticeRequestDTO;
 import book.exchange.app.dto.noticeDTOs.NoticeResponseDTO;
 import book.exchange.app.mapper.NoticeMapper;
+import book.exchange.app.model.Filters;
 import book.exchange.app.model.Notice;
 import book.exchange.app.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;

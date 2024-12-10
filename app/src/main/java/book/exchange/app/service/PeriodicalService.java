@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
@@ -29,6 +30,14 @@ public class PeriodicalService {
         Periodical periodical = PeriodicalMapper.fromDto(periodicalRequestDTO);
         periodicalRepository.createPeriodical(periodical);
         return PeriodicalMapper.toDto(periodical);
+    }
+
+    public List<PeriodicalResponseDTO> getAllPeriodicals(){
+
+        return periodicalRepository.getAllPeriodicals()
+                .stream()
+                .map(PeriodicalMapper::toDto)
+                .toList();
     }
 
     public PeriodicalResponseDTO findPeriodicalById(UUID id){
