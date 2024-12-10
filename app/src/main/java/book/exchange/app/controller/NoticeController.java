@@ -25,7 +25,7 @@ public class NoticeController {
     }
 
     @GetMapping
-    public List<NoticeResponseDTO> getAllNotices(){
+    public List<NoticeResponseDTO> getAllNotices() {
         return noticeService.getAllNotices();
     }
 

@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
@@ -29,6 +30,14 @@ public class ComicService {
         Comic comic = ComicMapper.fromDto(comicRequestDTO);
         comicRepository.createComic(comic);
         return ComicMapper.toDto(comic);
+    }
+
+    public List<ComicResponseDTO> getAllComics(){
+
+        return comicRepository.getAllComics()
+                .stream()
+                .map(ComicMapper::toDto)
+                .toList();
     }
 
     public ComicResponseDTO findComicById(UUID id){

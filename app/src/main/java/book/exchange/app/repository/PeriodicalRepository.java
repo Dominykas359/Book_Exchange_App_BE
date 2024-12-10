@@ -18,6 +18,20 @@ public interface PeriodicalRepository {
             "VALUES(#{id}, #{releaseYear}, #{title}, #{publisher}, #{author}, #{language}, #{status}, #{price}, #{number})")
     void createPeriodical(Periodical periodical);
 
+    @Select("SELECT * FROM app.periodicals")
+    @Results({
+            @Result(property = "id", column = "id"),
+            @Result(property = "releaseYear", column = "release_year"),
+            @Result(property = "title", column = "title"),
+            @Result(property = "publisher", column = "publisher"),
+            @Result(property = "author", column = "author"),
+            @Result(property = "language", column = "book_language"),
+            @Result(property = "status", column = "status"),
+            @Result(property = "price", column = "price"),
+            @Result(property = "number", column = "number")
+    })
+    List<Periodical> getAllPeriodicals();
+
     @Select("SELECT * FROM app.periodicals WHERE id = #{id}")
     @Results({
             @Result(property = "id", column = "id"),

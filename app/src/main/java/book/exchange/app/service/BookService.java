@@ -10,8 +10,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +27,14 @@ public class BookService {
         Book book = BookMapper.fromDto(bookRequestDTO);
         bookRepository.createBook(book);
         return BookMapper.toDto(book);
+    }
+
+    public List<BookResponseDTO> getAllBooks(){
+
+        return bookRepository.getAllBooks()
+                .stream()
+                .map(BookMapper::toDto)
+                .toList();
     }
 
     public BookResponseDTO findByBookId(UUID id){

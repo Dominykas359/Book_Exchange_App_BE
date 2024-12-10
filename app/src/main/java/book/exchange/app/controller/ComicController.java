@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -23,6 +24,12 @@ public class ComicController {
             @RequestBody ComicRequestDTO comicRequestDTO
             ){
         return ResponseEntity.ok(comicService.createComic(comicRequestDTO));
+    }
+
+    @GetMapping
+    public List<ComicResponseDTO> getAllComics(){
+
+        return comicService.getAllComics();
     }
 
     @GetMapping("/{id}")
