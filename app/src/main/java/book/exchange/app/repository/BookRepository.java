@@ -1,6 +1,7 @@
 package book.exchange.app.repository;
 
 import book.exchange.app.model.Book;
+import book.exchange.app.model.Comic;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -32,6 +33,10 @@ public interface BookRepository {
             @Result(property = "translator", column = "translator")
     })
     List<Book> getAllBooks();
+
+    @Select("SELECT * FROM app.books " +
+            "WHERE title ILIKE '%' || #{title} || '%'")
+    List<Book> getBooksByTitle(@Param("title") String title);
 
     @Select("SELECT * FROM app.books WHERE id = #{id}")
     @Results({
