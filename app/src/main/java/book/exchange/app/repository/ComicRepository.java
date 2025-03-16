@@ -33,6 +33,10 @@ public interface ComicRepository {
     })
     List<Comic> getAllComics();
 
+    @Select("SELECT * FROM app.comics " +
+            "WHERE title ILIKE '%' || #{title} || '%'")
+    List<Comic> getComicsByTitle(@Param("title") String title);
+
     @Select("SELECT * FROM app.comics WHERE id = #{id}")
     @Results({
             @Result(property = "id", column = "id"),
