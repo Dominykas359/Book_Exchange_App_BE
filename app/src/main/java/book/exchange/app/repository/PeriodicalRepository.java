@@ -33,7 +33,8 @@ public interface PeriodicalRepository {
     List<Periodical> getAllPeriodicals();
 
     @Select("SELECT * FROM app.periodicals " +
-            "WHERE title ILIKE '%' || #{title} || '%'")
+            "WHERE title ILIKE '%' || #{title} || '%' " +
+            "AND status = 'RENTING'")
     List<Periodical> getPeriodicalsByTitle(@Param("title") String title);
 
     @Select("SELECT * FROM app.periodicals WHERE id = #{id}")
