@@ -33,6 +33,12 @@ public interface BookRepository {
     })
     List<Book> getAllBooks();
 
+    @Select("SELECT * FROM app.books " +
+            "WHERE title ILIKE '%' || #{title} || '%'" +
+            "AND (status = 'RENTING'" +
+            "OR status = 'SELLING')")
+    List<Book> getBooksByTitle(@Param("title") String title);
+
     @Select("SELECT * FROM app.books WHERE id = #{id}")
     @Results({
             @Result(property = "id", column = "id"),
