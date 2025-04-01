@@ -100,7 +100,7 @@ public class GPTControllerUnitTests {
 
         List<Notice> response = gptController.chatGptResponse("prompt");
 
-        assertEquals(5, response.size(), "size should be 1");
+        assertEquals(5, response.size(), "size should be 5");
 
         verify(restTemplate).postForObject(any(String.class), any(ChatGptRequest.class), eq(ChatGptResponse.class));
         verify(gptService).getNoticesFromGptResponse(anyString());
