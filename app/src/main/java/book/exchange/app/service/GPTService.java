@@ -42,13 +42,13 @@ public class GPTService {
         List<Notice> notices = new ArrayList<>();
 
         for (Book book : books) {
-            notices.addAll(noticeRepository.findByPublicationId(book.getId()));
+            noticeRepository.findByPublicationId(book.getId()).ifPresent(notices::add);
         }
         for (Comic comic : comics) {
-            notices.addAll(noticeRepository.findByPublicationId(comic.getId()));
+            noticeRepository.findByPublicationId(comic.getId()).ifPresent(notices::add);
         }
         for (Periodical periodical : periodicals) {
-            notices.addAll(noticeRepository.findByPublicationId(periodical.getId()));
+            noticeRepository.findByPublicationId(periodical.getId()).ifPresent(notices::add);
         }
 
         return notices;
