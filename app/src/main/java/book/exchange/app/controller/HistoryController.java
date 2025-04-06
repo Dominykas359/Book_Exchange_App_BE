@@ -3,6 +3,7 @@ package book.exchange.app.controller;
 import book.exchange.app.dto.historyDTOs.HistoryRequestDTO;
 import book.exchange.app.dto.historyDTOs.HistoryResponseDTO;
 import book.exchange.app.service.HistoryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class HistoryController {
 
     @PostMapping
     public ResponseEntity<HistoryResponseDTO> createHistory(
-            @RequestBody HistoryRequestDTO historyRequestDTO
+            @Valid @RequestBody HistoryRequestDTO historyRequestDTO
             ){
         return ResponseEntity.ok(historyService.createHistory(historyRequestDTO));
     }
