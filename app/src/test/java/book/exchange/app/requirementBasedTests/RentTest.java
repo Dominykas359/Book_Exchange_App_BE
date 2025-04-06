@@ -140,5 +140,34 @@ public class RentTest {
                 .andExpect(status().isNotFound());
     }
 
+    @Test
+    public void testResponseUnder1Second() throws Exception{
 
+        BookRequestDTO updateDTO = BookRequestDTO.builder()
+                .title(testBook.getTitle())
+                .author(testBook.getAuthor())
+                .publisher(testBook.getPublisher())
+                .releaseYear(testBook.getReleaseYear())
+                .language(testBook.getLanguage())
+                .status("RENTED")
+                .price(testBook.getPrice())
+                .pageCount(testBook.getPageCount())
+                .cover(testBook.getCover())
+                .translator(testBook.getTranslator())
+                .build();
+
+        String jsonRequest = objectMapper.writeValueAsString(updateDTO);
+
+        long startTime = System.nanoTime();
+
+        mockMvc.perform(put("/books/" + testBook.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonRequest))
+                .andExpect(status().isOk());
+
+        long endTime = System.nanoTime();
+        long durationInMillis = (endTime - startTime) / 1_000_000;
+
+        assertTrue(durationInMillis < 1000, "Update took too long: " + durationInMillis + " ms");
+    }
 }
