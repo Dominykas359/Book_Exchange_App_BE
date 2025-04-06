@@ -3,6 +3,7 @@ package book.exchange.app.controller;
 import book.exchange.app.dto.bookDTOs.BookRequestDTO;
 import book.exchange.app.dto.bookDTOs.BookResponseDTO;
 import book.exchange.app.service.BookService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +39,7 @@ public class BookController {
     @PutMapping("/{id}")
     public BookResponseDTO updateBook(
             @PathVariable("id") UUID id,
-            @RequestBody BookRequestDTO bookRequestDTO
+            @Valid @RequestBody BookRequestDTO bookRequestDTO
     ){
         return bookService.updateBook(id, bookRequestDTO);
     }
