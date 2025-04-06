@@ -114,5 +114,31 @@ public class RentTest {
                 .andExpect(jsonPath("$.status").value("RENTED"));
     }
 
+    @Test
+    public void testStatusChangeForNotExistingBook() throws Exception{
+
+        UUID fakeBookId = UUID.randomUUID();
+
+        BookRequestDTO updateDTO = BookRequestDTO.builder()
+                .title("Doesn't matter")
+                .author("No one")
+                .publisher("Nowhere")
+                .releaseYear(LocalDate.now())
+                .language("None")
+                .status("RENTED")
+                .price(0.0)
+                .pageCount(0)
+                .cover("None")
+                .translator("None")
+                .build();
+
+        String jsonRequest = objectMapper.writeValueAsString(updateDTO);
+
+        mockMvc.perform(put("/books/" + fakeBookId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonRequest))
+                .andExpect(status().isNotFound());
+    }
+
 
 }
