@@ -1,5 +1,6 @@
 package book.exchange.app.dto.publicationDTOs;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class PublicationRequestDTO {
     private String publisher;
     private String author;
     private String language;
+    @NotNull
     private String status;
     private Double price;
 }
