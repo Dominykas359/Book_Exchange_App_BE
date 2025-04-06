@@ -170,4 +170,36 @@ public class RentTest {
 
         assertTrue(durationInMillis < 1000, "Update took too long: " + durationInMillis + " ms");
     }
+
+    @Test
+    public void testResponseOver1Second() throws Exception{
+
+        BookRequestDTO updateDTO = BookRequestDTO.builder()
+                .title(testBook.getTitle())
+                .author(testBook.getAuthor())
+                .publisher(testBook.getPublisher())
+                .releaseYear(testBook.getReleaseYear())
+                .language(testBook.getLanguage())
+                .status("RENTED")
+                .price(testBook.getPrice())
+                .pageCount(testBook.getPageCount())
+                .cover(testBook.getCover())
+                .translator(testBook.getTranslator())
+                .build();
+
+        String jsonRequest = objectMapper.writeValueAsString(updateDTO);
+
+        long startTime = System.nanoTime();
+
+        Thread.sleep(1000);
+        mockMvc.perform(put("/books/" + testBook.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonRequest))
+                .andExpect(status().isOk());
+
+        long endTime = System.nanoTime();
+        long durationInMillis = (endTime - startTime) / 1_000_000;
+
+        assertTrue(durationInMillis > 1000, "Updated too fast");
+    }
 }
