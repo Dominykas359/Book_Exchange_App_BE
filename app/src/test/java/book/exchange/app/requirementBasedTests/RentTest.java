@@ -1,13 +1,14 @@
 package book.exchange.app.requirementBasedTests;
 
 import book.exchange.app.dto.bookDTOs.BookRequestDTO;
+import book.exchange.app.dto.historyDTOs.HistoryRequestDTO;
 import book.exchange.app.model.*;
 import book.exchange.app.repository.BookRepository;
 import book.exchange.app.repository.NoticeRepository;
 import book.exchange.app.repository.UserRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -21,6 +22,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -47,8 +49,10 @@ public class RentTest {
     private ObjectMapper objectMapper;
 
     private User testUser;
+    private User testBuyer;
     private Notice testNotice;
     private Book testBook;
+    private History testHistory;
 
     @BeforeEach
     void setUp() {
@@ -62,6 +66,17 @@ public class RentTest {
                 .role(Role.USER)
                 .build();
         userRepository.createUser(testUser);
+
+        testBuyer = User.builder()
+                .id(UUID.randomUUID())
+                .email("testbuyer@gmail.com")
+                .password("$2a$10$9wM/qnxd5jp6S9nIrX8Lduv/nvSxXHbpEPWmnvq2D6pQshcHznq6W")
+                .firstName("Test")
+                .lastName("Buyer")
+                .birthday(LocalDate.now())
+                .role(Role.USER)
+                .build();
+        userRepository.createUser(testBuyer);
 
         testBook = Book.builder()
                 .id(UUID.randomUUID())
@@ -201,5 +216,38 @@ public class RentTest {
         long durationInMillis = (endTime - startTime) / 1_000_000;
 
         assertTrue(durationInMillis > 1000, "Updated too fast");
+    }
+
+    @Test
+    public void testSuccessfulRecordInBuyerHistory() throws Exception {
+
+        HistoryRequestDTO historyRequestDTO = HistoryRequestDTO.builder()
+                .userId(testUser.getId())
+                .noticeId(testNotice.getId())
+                .buyer(testBuyer.getId())
+                .build();
+
+        String jsonRequest = objectMapper.writeValueAsString(historyRequestDTO);
+
+        mockMvc.perform(post("/histories")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonRequest))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testUnsuccessfulRecordInBuyerHistory() throws Exception {
+
+        HistoryRequestDTO historyRequestDTO = HistoryRequestDTO.builder()
+                .userId(testUser.getId())
+                .noticeId(testNotice.getId())
+                .build();
+
+        String jsonRequest = objectMapper.writeValueAsString(historyRequestDTO);
+
+        mockMvc.perform(post("/histories")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonRequest))
+                .andExpect(status().isBadRequest());
     }
 }
