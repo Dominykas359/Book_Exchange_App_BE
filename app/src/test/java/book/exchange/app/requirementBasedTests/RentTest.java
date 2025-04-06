@@ -89,5 +89,30 @@ public class RentTest {
         noticeRepository.createNotice(testNotice);
     }
 
+    @Test
+    public void testSuccessfulStatusChange() throws Exception {
+        // Update the book status to RENTED
+        BookRequestDTO updateDTO = BookRequestDTO.builder()
+                .title(testBook.getTitle())
+                .author(testBook.getAuthor())
+                .publisher(testBook.getPublisher())
+                .releaseYear(testBook.getReleaseYear())
+                .language(testBook.getLanguage())
+                .status("RENTED")
+                .price(testBook.getPrice())
+                .pageCount(testBook.getPageCount())
+                .cover(testBook.getCover())
+                .translator(testBook.getTranslator())
+                .build();
+
+        String jsonRequest = objectMapper.writeValueAsString(updateDTO);
+
+        mockMvc.perform(put("/books/" + testBook.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonRequest))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value("RENTED"));
+    }
+
 
 }
