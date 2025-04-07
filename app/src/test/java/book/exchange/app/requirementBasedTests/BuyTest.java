@@ -254,4 +254,20 @@ public class BuyTest {
                         .content(jsonRequest))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void testUnsuccessfulRecordInSellerHistory() throws Exception{
+
+        HistoryRequestDTO historyRequestDTO = HistoryRequestDTO.builder()
+                .userId(testBuyer.getId())
+                .noticeId(testNotice.getId())
+                .build();
+
+        String jsonRequest = objectMapper.writeValueAsString(historyRequestDTO);
+
+        mockMvc.perform(post("/histories")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonRequest))
+                .andExpect(status().isBadRequest());
+    }
 }
