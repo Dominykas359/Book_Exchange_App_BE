@@ -122,4 +122,26 @@ public class BuyTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("SOLD"));
     }
+
+    @Test
+    public void testUnsuccessfulStatusChange() throws Exception {
+        BookRequestDTO updateDTO = BookRequestDTO.builder()
+                .title(testBook.getTitle())
+                .author(testBook.getAuthor())
+                .publisher(testBook.getPublisher())
+                .releaseYear(testBook.getReleaseYear())
+                .language(testBook.getLanguage())
+                .price(testBook.getPrice())
+                .pageCount(testBook.getPageCount())
+                .cover(testBook.getCover())
+                .translator(testBook.getTranslator())
+                .build();
+
+        String jsonRequest = objectMapper.writeValueAsString(updateDTO);
+
+        mockMvc.perform(put("/books/" + testBook.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonRequest))
+                .andExpect(status().isBadRequest());
+    }
 }
