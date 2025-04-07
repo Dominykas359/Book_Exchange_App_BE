@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -169,5 +170,36 @@ public class BuyTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonRequest))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void testResponseUnder1Second() throws Exception{
+
+        BookRequestDTO updateDTO = BookRequestDTO.builder()
+                .title(testBook.getTitle())
+                .author(testBook.getAuthor())
+                .publisher(testBook.getPublisher())
+                .releaseYear(testBook.getReleaseYear())
+                .language(testBook.getLanguage())
+                .status("SOLD")
+                .price(testBook.getPrice())
+                .pageCount(testBook.getPageCount())
+                .cover(testBook.getCover())
+                .translator(testBook.getTranslator())
+                .build();
+
+        String jsonRequest = objectMapper.writeValueAsString(updateDTO);
+
+        long startTime = System.nanoTime();
+
+        mockMvc.perform(put("/books/" + testBook.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonRequest))
+                .andExpect(status().isOk());
+
+        long endTime = System.nanoTime();
+        long durationInMillis = (endTime - startTime) / 1_000_000;
+
+        assertTrue(durationInMillis < 1000, "Update took too long: " + durationInMillis + " ms");
     }
 }
