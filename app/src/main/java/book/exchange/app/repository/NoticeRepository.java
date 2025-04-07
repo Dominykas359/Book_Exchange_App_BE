@@ -72,6 +72,17 @@ public interface NoticeRepository {
     })
     Optional<Notice> findById(@Param("id") UUID id);
 
+    @Select("SELECT * FROM app.notices WHERE book_id = #{publicationId} OR comic_id = #{publicationId} OR periodical_id = #{publicationId}")
+    @Results({
+            @Result(property = "id", column = "id"),
+            @Result(property = "userId", column = "user_id"),
+            @Result(property = "bookId", column = "book_id"),
+            @Result(property = "comicId", column = "comic_id"),
+            @Result(property = "periodicalId", column = "periodical_id"),
+            @Result(property = "timePosted", column = "time_posted")
+    })
+    Optional<Notice> findByPublicationId(@Param("publicationId") UUID publicationId);
+
     @Delete("DELETE FROM app.notices WHERE id = #{id}")
     @Results({
             @Result(property = "id", column = "id"),
