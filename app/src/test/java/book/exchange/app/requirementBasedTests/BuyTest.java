@@ -1,6 +1,7 @@
 package book.exchange.app.requirementBasedTests;
 
 import book.exchange.app.dto.bookDTOs.BookRequestDTO;
+import book.exchange.app.dto.historyDTOs.HistoryRequestDTO;
 import book.exchange.app.model.*;
 import book.exchange.app.repository.BookRepository;
 import book.exchange.app.repository.NoticeRepository;
@@ -20,6 +21,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -201,5 +203,22 @@ public class BuyTest {
         long durationInMillis = (endTime - startTime) / 1_000_000;
 
         assertTrue(durationInMillis < 1000, "Update took too long: " + durationInMillis + " ms");
+    }
+
+    @Test
+    public void testSuccessfulRecordInBuyerHistory() throws Exception {
+
+        HistoryRequestDTO historyRequestDTO = HistoryRequestDTO.builder()
+                .userId(testUser.getId())
+                .noticeId(testNotice.getId())
+                .buyer(testBuyer.getId())
+                .build();
+
+        String jsonRequest = objectMapper.writeValueAsString(historyRequestDTO);
+
+        mockMvc.perform(post("/histories")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonRequest))
+                .andExpect(status().isOk());
     }
 }
