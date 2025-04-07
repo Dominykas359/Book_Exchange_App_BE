@@ -144,4 +144,30 @@ public class BuyTest {
                         .content(jsonRequest))
                 .andExpect(status().isBadRequest());
     }
+
+    @Test
+    public void testStatusChangeForNotExistingBook() throws Exception{
+
+        UUID fakeBookId = UUID.randomUUID();
+
+        BookRequestDTO updateDTO = BookRequestDTO.builder()
+                .title("Doesn't matter")
+                .author("No one")
+                .publisher("Nowhere")
+                .releaseYear(LocalDate.now())
+                .language("None")
+                .status("SOLD")
+                .price(0.0)
+                .pageCount(0)
+                .cover("None")
+                .translator("None")
+                .build();
+
+        String jsonRequest = objectMapper.writeValueAsString(updateDTO);
+
+        mockMvc.perform(put("/books/" + fakeBookId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonRequest))
+                .andExpect(status().isNotFound());
+    }
 }
