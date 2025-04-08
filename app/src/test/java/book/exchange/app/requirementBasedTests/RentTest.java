@@ -53,6 +53,7 @@ public class RentTest {
     private Book testBook;
     private History testHistory;
 
+    //setup
     @BeforeEach
     void setUp() {
         testUser = User.builder()
