@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/wishlists")
+@RequestMapping("/wishlist")
 public class WishlistController {
 
     private final WishlistService wishlistService;
@@ -23,7 +23,7 @@ public class WishlistController {
         return ResponseEntity.ok(wishlistService.createWishlist(wishlistRequestDTO));
     }
 
-    @GetMapping("/wishlists/{user_id}")
+    @GetMapping("/{user_id}")
     public List<WishlistResponseDTO> getAllWishlist(@PathVariable("user_id") UUID user_id) {
         return wishlistService.getAllWishlist(user_id);
     }
