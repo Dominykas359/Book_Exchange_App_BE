@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/gpt")
@@ -31,13 +32,15 @@ public class GPTController {
     private GPTService gptService;
 
     @GetMapping("/chat")
-    public List<Notice> chatGptResponse(@RequestParam("prompt") String prompt){
+    public List<Notice> chatGptResponse(@RequestParam("prompt") String prompt) {
 
-        ChatGptRequest chatGptRequest = new ChatGptRequest(model, prompt);
+        String text = gptService.preparePromptForJsonResponse(prompt);
+
+        ChatGptRequest chatGptRequest = new ChatGptRequest(model, text);
         ChatGptResponse chatGptResponse = template.postForObject(url, chatGptRequest, ChatGptResponse.class);
 
         String gptTextResponse = chatGptResponse.getChoices().get(0).getMessage().getContent();
 
-        return gptService.getNoticesFromGptResponse(gptTextResponse);
+        return gptService.getNotices(gptTextResponse);
     }
 }
