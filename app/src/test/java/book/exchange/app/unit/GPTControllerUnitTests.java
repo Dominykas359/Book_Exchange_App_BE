@@ -1,4 +1,4 @@
-package book.exchange.app.unitTests;
+package book.exchange.app.unit;
 
 import book.exchange.app.controller.GPTController;
 import book.exchange.app.dto.chatGptDTOs.ChatGptRequest;
@@ -65,7 +65,7 @@ public class GPTControllerUnitTests {
                 .build();
         List<Notice> list = Collections.singletonList(notice);
 
-        when(gptService.getNoticesFromGptResponse(anyString()))
+        when(gptService.getNotices(anyString()))
                 .thenReturn(list);
 
         List<Notice> response = gptController.chatGptResponse("prompt");
@@ -73,7 +73,7 @@ public class GPTControllerUnitTests {
         assertEquals(1, response.size(), "size should be 1");
 
         verify(restTemplate).postForObject(any(String.class), any(ChatGptRequest.class), eq(ChatGptResponse.class));
-        verify(gptService).getNoticesFromGptResponse(anyString());
+        verify(gptService).getNotices(anyString());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class GPTControllerUnitTests {
             list.add(notice);
         }
 
-        when(gptService.getNoticesFromGptResponse(anyString()))
+        when(gptService.getNotices(anyString()))
                 .thenReturn(list);
 
         List<Notice> response = gptController.chatGptResponse("prompt");
@@ -103,7 +103,7 @@ public class GPTControllerUnitTests {
         assertEquals(5, response.size(), "size should be 1");
 
         verify(restTemplate).postForObject(any(String.class), any(ChatGptRequest.class), eq(ChatGptResponse.class));
-        verify(gptService).getNoticesFromGptResponse(anyString());
+        verify(gptService).getNotices(anyString());
     }
 
     @Test
@@ -111,7 +111,7 @@ public class GPTControllerUnitTests {
 
         List<Notice> list = new ArrayList<>();
 
-        when(gptService.getNoticesFromGptResponse(anyString()))
+        when(gptService.getNotices(anyString()))
                 .thenReturn(list);
 
         List<Notice> response = gptController.chatGptResponse("prompt");
@@ -119,6 +119,6 @@ public class GPTControllerUnitTests {
         assertEquals(0, response.size(), "should be null");
 
         verify(restTemplate).postForObject(any(String.class), any(ChatGptRequest.class), eq(ChatGptResponse.class));
-        verify(gptService).getNoticesFromGptResponse(anyString());
+        verify(gptService).getNotices(anyString());
     }
 }

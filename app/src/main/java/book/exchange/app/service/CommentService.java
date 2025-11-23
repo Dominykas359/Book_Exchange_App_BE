@@ -29,16 +29,6 @@ public class CommentService {
         return CommentMapper.toDto(comment);
     }
 
-    private void populateReplies(Comment comment) {
-
-        List<Comment> replies = commentRepository.getRepliesForComment(comment.getId());
-        comment.setReplies(replies);
-
-        for (Comment reply : replies) {
-            populateReplies(reply);
-        }
-    }
-
     public List<CommentResponseDTO> getCommentsForNotice(UUID noticeId) {
 
         List<Comment> topLevelComments = commentRepository.getCommentForNotice(noticeId);
@@ -64,5 +54,22 @@ public class CommentService {
     @Transactional
     public void deleteComment(UUID id){
         commentRepository.deleteComment(id);
+    }
+
+    private void populateReplies(Comment root) {
+        populateRepliesRecursive(root);
+    }
+
+    private void populateRepliesRecursive(Comment parent) {
+        List<Comment> replies = loadReplies(parent.getId());
+        parent.setReplies(replies);
+
+        for (Comment reply : replies) {
+            populateRepliesRecursive(reply);
+        }
+    }
+
+    private List<Comment> loadReplies(UUID parentId) {
+        return commentRepository.getRepliesForComment(parentId);
     }
 }

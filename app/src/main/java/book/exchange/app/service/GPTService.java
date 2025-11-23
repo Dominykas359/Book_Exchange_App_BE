@@ -4,11 +4,12 @@ import book.exchange.app.model.*;
 import book.exchange.app.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -19,39 +20,62 @@ public class GPTService {
     private final PeriodicalRepository periodicalRepository;
     private final NoticeRepository noticeRepository;
 
-    public List<Notice> getNoticesFromGptResponse(String gptResponse) {
-        Pattern pattern = Pattern.compile("\"(.*?)\" by");
-        Matcher matcher = pattern.matcher(gptResponse);
+    public String preparePromptForJsonResponse(String userPrompt) {
+        List<PublicationInfo> allPublications = loadAllPublications();
 
-        List<String> bookTitles = new ArrayList<>();
+        String publicationsText = formatPublications(allPublications);
 
-        while (matcher.find()) {
-            bookTitles.add(matcher.group(1));
+        return "User prompt:\n" +
+                userPrompt +
+                "\n\nMatching these items:\n" +
+                publicationsText +
+                "\nRespond ONLY with a JSON array of matching UUIDs. Format: [\"uuid1\", \"uuid2\"]";
+    }
+
+    public List<Notice> getNotices(String gptTextResponse) {
+        List<UUID> ids = parseUuidList(gptTextResponse);
+        return loadNoticesByIds(ids);
+    }
+
+    private List<UUID> parseUuidList(String json) {
+        try {
+            return new ObjectMapper().readValue(json, new TypeReference<List<UUID>>(){});
+        } catch (Exception e) {
+            return List.of();
         }
+    }
 
-        List<Book> books = new ArrayList<>();
-        List<Comic> comics = new ArrayList<>();
-        List<Periodical> periodicals = new ArrayList<>();
-
-        for (String title : bookTitles) {
-            books.addAll(bookRepository.getBooksByTitle(title));
-            comics.addAll(comicRepository.getComicsByTitle(title));
-            periodicals.addAll(periodicalRepository.getPeriodicalsByTitle(title));
-        }
-
+    private List<Notice> loadNoticesByIds(List<UUID> ids) {
         List<Notice> notices = new ArrayList<>();
-
-        for (Book book : books) {
-            notices.addAll(noticeRepository.findByPublicationId(book.getId()));
+        for (UUID id : ids) {
+            noticeRepository.findByPublicationId(id).ifPresent(notices::add);
         }
-        for (Comic comic : comics) {
-            notices.addAll(noticeRepository.findByPublicationId(comic.getId()));
-        }
-        for (Periodical periodical : periodicals) {
-            notices.addAll(noticeRepository.findByPublicationId(periodical.getId()));
-        }
-
         return notices;
     }
 
+
+    private List<PublicationInfo> loadAllPublications() {
+        List<PublicationInfo> result = new ArrayList<>();
+
+        bookRepository.getAllBooks()
+                .forEach(b -> result.add(new PublicationInfo(b.getId(), b.getTitle())));
+
+        comicRepository.getAllComics()
+                .forEach(c -> result.add(new PublicationInfo(c.getId(), c.getTitle())));
+
+        periodicalRepository.getAllPeriodicals()
+                .forEach(p -> result.add(new PublicationInfo(p.getId(), p.getTitle())));
+
+        return result;
+    }
+
+    private String formatPublications(List<PublicationInfo> items) {
+        StringBuilder builder = new StringBuilder();
+        for (PublicationInfo item : items) {
+            builder.append(item.id()).append(" - ").append(item.title()).append(" - ");
+        }
+        return builder.toString();
+    }
+
+    private record PublicationInfo(UUID id, String title) {}
 }

@@ -81,7 +81,7 @@ public interface NoticeRepository {
             @Result(property = "periodicalId", column = "periodical_id"),
             @Result(property = "timePosted", column = "time_posted")
     })
-    List<Notice> findByPublicationId(@Param("publicationId") UUID publicationId);
+    Optional<Notice> findByPublicationId(@Param("publicationId") UUID publicationId);
 
     @Delete("DELETE FROM app.notices WHERE id = #{id}")
     @Results({
