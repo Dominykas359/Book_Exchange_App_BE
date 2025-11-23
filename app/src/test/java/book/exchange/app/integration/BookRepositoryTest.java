@@ -1,4 +1,4 @@
-package book.exchange.app.integrationTests;
+package book.exchange.app.integration;
 
 import book.exchange.app.model.Book;
 import book.exchange.app.model.Status;
